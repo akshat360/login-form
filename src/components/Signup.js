@@ -10,15 +10,15 @@ const Signup = () => {
           <legend>Create Account</legend>
           <ul>
             <li>
-              <label for="email">Email:</label>
-              <input type="text" id="email" required />
+              <label htmlFor="name">Name:</label>
+              <input type="text" id="name" required />
             </li>
             <li>
-              <label for="email">Email:</label>
+              <label htmlFor="email">Email:</label>
               <input type="email" id="email" required />
             </li>
             <li>
-              <label for="password">Password:</label>
+              <label htmlFor="password">Password:</label>
               <input type="password" id="password" required />
             </li>
           </ul>

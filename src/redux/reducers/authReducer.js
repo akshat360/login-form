@@ -1,3 +1,4 @@
+//initial State
 const initialState = {
   email: '',
   name: '',
@@ -7,7 +8,7 @@ const initialState = {
   isAuthenticated: false,
   error: '',
 };
-
+// Reducer for Auth
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_EMAIL':

@@ -8,19 +8,24 @@ const Login = () => {
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
   const isEmailExist = useSelector((state) => state.isEmailExist);
   const password = useSelector((state) => state.password);
+  const error = useSelector((state) => state.error);
   const dispatch = useDispatch();
 
   const handleChange = (name) => (event) => {
     dispatch({ type: `SET_${name}`, payload: event.target.value });
   };
-
+  // checking if Email Exist
   const checkEmailExists = async () => {
     let checker = await checkEmail();
-    if (checker) {
+    if (checker.user.email === email) {
+      dispatch({ type: `SET_ERROR`, payload: '' });
       dispatch({ type: `SET_EMAIL_EXISTS`, payload: true });
+    } else {
+      dispatch({ type: `SET_EMAIL`, payload: '' });
+      dispatch({ type: `SET_ERROR`, payload: 'No Such Email Exist' });
     }
   };
-
+  // checking if User Exist
   const checkIsAuthenticated = async () => {
     await checkUser(email, password)
       .then((value) => {
@@ -45,14 +50,16 @@ const Login = () => {
     return (
       <section>
         {isAuthenticated && <Redirect to="/home" />}
+
         {!isEmailExist && (
           <form>
             <h2>Welcome Back!</h2>
+
             <fieldset>
               <legend>Enter Your Email</legend>
               <ul>
                 <li>
-                  <label for="email">Email:</label>
+                  <label htmlFor="email">Email:</label>
                   <input
                     type="text"
                     id="email"
@@ -60,8 +67,12 @@ const Login = () => {
                     value={email}
                     onChange={handleChange('EMAIL')}
                   />
-                  {console.log(email)}
                 </li>
+                {error.length !== 0 && (
+                  <h4 className=" alert-danger rounded text-center p-1 mx-2 my-3">
+                    {error}
+                  </h4>
+                )}
               </ul>
             </fieldset>
             <button type="button" onClick={checkEmailExists}>
@@ -79,7 +90,7 @@ const Login = () => {
               <legend>Log In</legend>
               <ul>
                 <li>
-                  <label for="email">Email:</label>
+                  <label htmlFor="email">Email:</label>
                   <input
                     type="text"
                     id="email"
@@ -89,7 +100,7 @@ const Login = () => {
                   />
                 </li>
                 <li>
-                  <label for="password">Password:</label>
+                  <label htmlFor="password">Password:</label>
                   <input
                     type="password"
                     id="password"

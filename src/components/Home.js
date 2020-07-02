@@ -9,6 +9,7 @@ export default function Home() {
 
   return (
     <div>
+      {/*  if User is Authenticated */}
       {isAuthenticated && (
         <section>
           <form>
@@ -18,6 +19,8 @@ export default function Home() {
           </form>
         </section>
       )}
+      {/*  if User is NOt Authenticated */}
+
       {!isAuthenticated && (
         <section>
           <form>
